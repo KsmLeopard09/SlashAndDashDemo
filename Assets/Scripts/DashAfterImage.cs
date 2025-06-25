@@ -28,8 +28,11 @@ public class DashAfterImage : MonoBehaviour
     private void Start()
     {
         baseRenderer = transform.Find("Base").GetComponent<SpriteRenderer>();
-        armourRenderer = transform.Find("Base").transform.Find("Armour").GetComponent<SpriteRenderer>();
-        playerArmour = playerAfterImage.transform.Find("Base").transform.Find("Armour").GetComponent<SpriteRenderer>();
+        if(transform.Find("Base").transform.Find("Armour") != null)
+        {
+            armourRenderer = transform.Find("Base").transform.Find("Armour").GetComponent<SpriteRenderer>();
+            playerArmour = playerAfterImage.transform.Find("Base").transform.Find("Armour").GetComponent<SpriteRenderer>();
+        }
         playerBase = playerAfterImage.transform.Find("Base").transform.GetComponent<SpriteRenderer>();
         canProduce = false;
     }
@@ -50,23 +53,17 @@ public class DashAfterImage : MonoBehaviour
         while (playerDash.dashing)
         {
             Sprite currentBaseSprite = baseRenderer.sprite;
-            Sprite currentArmourSprite = armourRenderer.sprite;
             playerBase.sprite = currentBaseSprite;
-            playerArmour.sprite = currentArmourSprite;
-            if(!facingRight)
+            if(armourRenderer != null)
             {
-                playerBase.flipX = true;
-                playerArmour.flipX = true;
+                Sprite currentArmourSprite = armourRenderer.sprite;
+                playerArmour.sprite = currentArmourSprite;
+                playerArmour.flipX = !facingRight;
             }
-            else
-            {
-                playerBase.flipX = false;
-                playerArmour.flipX = false;
-            }
+            playerBase.flipX = !facingRight;
             Instantiate(playerAfterImage, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(afterImageInterval);
         }
-        Instantiate(playerAfterImage, player.transform.position, Quaternion.identity);
         canProduce = false;
     }
 }

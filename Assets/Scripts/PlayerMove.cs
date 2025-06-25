@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private PlayerInput input;
+    [SerializeField] private PlayerAttack attackHandler;
     private Rigidbody2D rb;
     [SerializeField] private float movementSpeed;
 
@@ -33,6 +34,11 @@ public class PlayerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if(attackHandler.isAttacking)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
+        }
         Vector2 move = input.MoveInput;
         rb.velocity = new Vector2(move.x * movementSpeed, rb.velocity.y);
         HandleFlip(move.x);

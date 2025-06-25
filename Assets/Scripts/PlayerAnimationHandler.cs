@@ -16,12 +16,19 @@ public class PlayerAnimationHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMovementAndAnimation(input.MoveInput.x);
+        UpdateMovementAnimation(input.MoveInput.x);
     }
-    void UpdateMovementAndAnimation(float horizontalInput)
+    void UpdateMovementAnimation(float horizontalInput)
     {
         bool isMoving = Mathf.Abs(horizontalInput) > 0.1;
         playerAnimator.SetBool("Moving", isMoving);
-        armourAnimator.SetBool("Moving", isMoving);
+        if(armourAnimator != null)
+        {
+            armourAnimator.SetBool("Moving", isMoving);
+        }
+    }
+    public void UpdateAttackAnimation()
+    {
+        playerAnimator.SetTrigger("Attacking");
     }
 }

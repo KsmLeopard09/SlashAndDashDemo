@@ -7,7 +7,6 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private PlayerInput input;
     [SerializeField] private PlayerMove movement;
     [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashBuffer = 0.1f;
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private DashAfterImage afterImageGenerator;
@@ -15,10 +14,21 @@ public class PlayerDash : MonoBehaviour
     private bool canDash = true;
     public bool dashing { get; private set; }
     public float originalSpeed { get; private set; }
+    public float DashDuration
+    {
+        get => dashDuration;
+        private set => dashDuration = value;
+    }
+    public float DashCooldown
+    {
+        get => dashCooldown;
+        private set => dashCooldown = value;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,7 +38,7 @@ public class PlayerDash : MonoBehaviour
     }
     void CheckDash()
     {
-        if(input.DashPressed && canDash)
+        if (input.DashPressed && canDash)
         {
             dashing = true;
             StartCoroutine(Dash());

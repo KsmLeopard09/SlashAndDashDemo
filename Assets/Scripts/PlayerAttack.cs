@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
     }
     private void HandleAttackInput()
     {
-        if (input.AttackPressed && !attacking && cooldownTimer <= 0f)
+        if (input.AttackPressed && cooldownTimer <= 0f && attacking == false)
         {
             StartAttack();
             Debug.Log("Attacking");

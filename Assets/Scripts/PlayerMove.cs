@@ -39,9 +39,12 @@ public class PlayerMove : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
-        Vector2 move = input.MoveInput;
-        rb.velocity = new Vector2(move.x * movementSpeed, rb.velocity.y);
-        HandleFlip(move.x);
+        else
+        {
+            Vector2 move = input.MoveInput;
+            rb.velocity = new Vector2(move.x * movementSpeed, rb.velocity.y);
+            HandleFlip(move.x);
+        }
     }
     void Flip()
     {

@@ -10,6 +10,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private DashAfterImage afterImageGenerator;
+    [SerializeField] private PlayerAttack attackHandler;
 
     private bool canDash = true;
     public bool dashing { get; private set; }
@@ -38,7 +39,7 @@ public class PlayerDash : MonoBehaviour
     }
     void CheckDash()
     {
-        if (input.DashPressed && canDash)
+        if (input.DashPressed && canDash && !attackHandler.isAttacking)
         {
             dashing = true;
             StartCoroutine(Dash());
